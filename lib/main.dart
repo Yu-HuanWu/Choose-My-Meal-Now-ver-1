@@ -19,12 +19,28 @@ class FirstRoute extends StatelessWidget {
       Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text('Ready to find some good grubs?',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 40,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic)),
+            Stack(
+              children: <Widget>[
+      Text('Ready to find some good grubs?',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 40,
+              foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 6
+              ..color= Colors.lightGreen,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic)),
+
+                Text('Ready to find some good grubs?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 40,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic)),
+      ]
+
+            )
+            ,
             RaisedButton(
                 onPressed: () {
                   Navigator.push(
@@ -35,7 +51,7 @@ class FirstRoute extends StatelessWidget {
                 },
                 child: Text(
                   'Yes! I am hungry!',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 30),
                 )
             ),
              ]
@@ -48,15 +64,24 @@ class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: AppBar(
-  title: Text ("What do you feel like?"),
-  backgroundColor: Colors.blueGrey[100],
-),
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text ("Let's see what you are in the mood for..."),
+          backgroundColor: Colors.lightGreen[400],
+        ),
       body:
         Column(
-
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+        Text("Select a protein:",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 40,
+                color: Colors.black,
+                fontWeight: FontWeight.bold)),
+        ]
+    ),
         )
-    );
+    ;
   }
 }
 
@@ -103,6 +128,8 @@ with SingleTickerProviderStateMixin {
       position: _offsetAnimation,
       child: Image(image:
         AssetImage('images/mealimage.png'),
+        color: Color.fromRGBO(255, 255, 255, 0.5),
+        colorBlendMode: BlendMode.modulate,
       height: double.maxFinite,
         repeat: ImageRepeat.repeat,
       ),
