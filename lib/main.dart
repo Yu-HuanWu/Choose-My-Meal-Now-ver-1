@@ -64,9 +64,9 @@ class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.amberAccent,
         appBar: AppBar(
-          title: Text ("Let's see what you are in the mood for..."),
+          title: Text ("What you are in the mood for?"),
           backgroundColor: Colors.lightGreen[400],
         ),
       body:
@@ -78,6 +78,14 @@ class SecondRoute extends StatelessWidget {
             style: TextStyle(fontSize: 40,
                 color: Colors.black,
                 fontWeight: FontWeight.bold)),
+              DropDown1Widget(),
+              Text("Do you like it hot?",
+              textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 40,
+                color: Colors.black,
+                fontWeight: FontWeight.bold)),
+              DropDown2Widget(),
+
         ]
     ),
         )
@@ -85,6 +93,85 @@ class SecondRoute extends StatelessWidget {
   }
 }
 
+//Drop Down menu for protein types
+class DropDown1Widget extends StatefulWidget {
+  DropDown1Widget({Key key}) : super(key: key);
+
+  @override
+  _DropDown1WidgetState createState() => _DropDown1WidgetState();
+}
+
+class _DropDown1WidgetState extends State<DropDown1Widget> {
+  String dropdownValue = 'Chicken';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: Icon(Icons.arrow_drop_down),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
+      },
+      items: <String>['Chicken', 'Beef', 'Seafood', 'Pork', 'Vegetarian', 'Choose for me!']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+}
+
+//Drop down menu 2 for spice level
+class DropDown2Widget extends StatefulWidget {
+  DropDown2Widget({Key key}) : super(key: key);
+
+  @override
+  _DropDown2WidgetState createState() => _DropDown2WidgetState();
+}
+
+class _DropDown2WidgetState extends State<DropDown2Widget> {
+  String dropdownValue = 'Hot';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: Icon(Icons.arrow_drop_down),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
+      underline: Container(
+        height: 2,
+        color: Colors.pinkAccent,
+      ),
+      onChanged: (String newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
+      },
+      items: <String>['Hot', 'Mild', 'Not Spicy', 'Choose for me!']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+}
+
+//Freaking animated background for the home page
 class MyStatefulWidget extends StatefulWidget {
   MyStatefulWidget({Key key}) :
       super(key: key);
@@ -137,6 +224,7 @@ with SingleTickerProviderStateMixin {
   }
 }
 
+//idk i guess this is where the app actually run
 void main() => runApp(
       MaterialApp(
         home: Stack(
