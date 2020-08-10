@@ -1,8 +1,7 @@
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter/rendering.dart';
 
 class FirstRoute extends StatelessWidget {
   @override
@@ -10,52 +9,46 @@ class FirstRoute extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: Text('Choose My Meal Now!',
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold),),
+        title: Text(
+          'Choose My Meal Now!',
+          style:
+              TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.lightGreen,
+        centerTitle: true,
       ),
-      body:
-      Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Stack(
-              children: <Widget>[
-      Text('Ready to find some good grubs?',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 40,
-              foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 6
-              ..color= Colors.lightGreen,
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic)),
-
-                Text('Ready to find some good grubs?',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 40,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic)),
-      ]
-
-            )
-            ,
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder:
-                    (context) => SecondRoute()),
-                  );
-                },
-                child: Text(
-                  'Yes! I am hungry!',
-                  style: TextStyle(fontSize: 30),
-                )
-            ),
-             ]
-      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        Stack(children: <Widget>[
+          Text('Ready to find some good grubs?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 6
+                    ..color = Colors.lightGreen,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic)),
+          Text('Ready to find some good grubs?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic)),
+        ]),
+        RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SecondRouteBackground()),
+              );
+            },
+            child: Text(
+              'Yes! I am hungry!',
+              style: TextStyle(fontSize: 30),
+            )),
+      ]),
     );
   }
 }
@@ -64,32 +57,78 @@ class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.amberAccent,
-        appBar: AppBar(
-          title: Text ("What you are in the mood for?"),
-          backgroundColor: Colors.lightGreen[400],
-        ),
-      body:
-        Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-        Text("Select a protein:",
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        title: Text('What you are in the mood for?'),
+        backgroundColor: Colors.lightGreen[400],
+        centerTitle: true,
+      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        Text('Select a protein:',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 40,
+            style: TextStyle(
+                fontSize: 40,
                 color: Colors.black,
                 fontWeight: FontWeight.bold)),
-              DropDown1Widget(),
-              Text("Do you like it hot?",
-              textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 40,
+        DropDown1Widget(),
+        Text('Do you like it hot? asdfghjk',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 40,
                 color: Colors.black,
                 fontWeight: FontWeight.bold)),
-              DropDown2Widget(),
+        DropDown2Widget(),
+        RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ThirdRoute()),
+              );
+            },
+            child: Text(
+              'Yes! I am hungry!',
+              style: TextStyle(fontSize: 30),
+            )),
+      ]),
+    );
+  }
+}
 
-        ]
-    ),
-        )
-    ;
+class SecondRouteBackground extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.amberAccent,
+      body:
+      Stack(
+      children: [
+        MyStatefulWidget(),
+        SecondRoute()
+      ],
+    )
+    );
+  }
+}
+
+class ThirdRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.amberAccent,
+      appBar: AppBar(
+        title: Text('What you are in the mood for?'),
+        backgroundColor: Colors.lightGreen[400],
+        centerTitle: true,
+      ),
+      body:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children:[
+        Text('Select a protein:',
+            textAlign: TextAlign.center,
+            ),
+      ]
+          )
+    );
   }
 }
 
@@ -121,8 +160,14 @@ class _DropDown1WidgetState extends State<DropDown1Widget> {
           dropdownValue = newValue;
         });
       },
-      items: <String>['Chicken', 'Beef', 'Seafood', 'Pork', 'Vegetarian', 'Choose for me!']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>[
+        'Chicken',
+        'Beef',
+        'Seafood',
+        'Pork',
+        'Vegetarian',
+        'Choose for me!'
+      ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -173,16 +218,14 @@ class _DropDown2WidgetState extends State<DropDown2Widget> {
 
 //Freaking animated background for the home page
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) :
-      super(key: key);
+  MyStatefulWidget({Key key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() =>
-      _MyStatefulWidgetState();
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget>
-with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
 
@@ -192,12 +235,11 @@ with SingleTickerProviderStateMixin {
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
-    )..repeat(reverse:true);
+    )..repeat(reverse: true);
     _offsetAnimation = Tween<Offset>(
-      begin: const Offset(-0.1,0.0),
+      begin: const Offset(-0.1, 0.0),
       end: const Offset(0.1, 0.0),
-    ).animate(
-        CurvedAnimation(
+    ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.easeInOutSine,
     ));
@@ -213,11 +255,11 @@ with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _offsetAnimation,
-      child: Image(image:
-        AssetImage('images/mealimage.png'),
+      child: Image(
+        image: AssetImage('images/mealimage.png'),
         color: Color.fromRGBO(255, 255, 255, 0.5),
         colorBlendMode: BlendMode.modulate,
-      height: double.maxFinite,
+        height: double.maxFinite,
         repeat: ImageRepeat.repeat,
       ),
     );
@@ -225,26 +267,28 @@ with SingleTickerProviderStateMixin {
 }
 
 //idk i guess this is where the app actually run
-void main() => runApp(
-      MaterialApp(
-        home: Stack(
+void main() {
+  debugPaintSizeEnabled= true;
+  runApp(
+    MaterialApp(
+      home: Stack(
         children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.amberAccent,
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.amberAccent,
 
-            /*image: new DecorationImage(image:
+              /*image: new DecorationImage(image:
             new AssetImage('images/mealimage.png'),
             fit: BoxFit.cover),*/
+            ),
+            child: MyStatefulWidget(),
+            //FirstRoute()
           ),
-        child: MyStatefulWidget(),
-        //FirstRoute()
+          Container(
+            child: FirstRoute(),
+          ),
+        ],
+      ),
     ),
-  Container(
-    child: FirstRoute(),
-      ),
-],
-),
-      ),
-);
-
+  );
+}
