@@ -110,24 +110,40 @@ class SecondRouteBackground extends StatelessWidget{
   }
 }
 
+//one of the optional route after SecondRoute, this one is for BigMac
+
 class ThirdRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amberAccent,
       appBar: AppBar(
-        title: Text('What you are in the mood for?'),
+        title: Text('You are in the mood for...'),
         backgroundColor: Colors.lightGreen[400],
         centerTitle: true,
       ),
       body:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:[
-        Text('Select a protein:',
-            textAlign: TextAlign.center,
-            ),
-      ]
-          )
+    Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+    Image(
+    image: AssetImage('images/BigMac.png'),
+    ),
+      Text('Big Mac!',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 40,
+              color: Colors.black,
+              fontWeight: FontWeight.bold)),
+    RaisedButton(
+    onPressed: () {
+    Navigator.pop(context);
+    },
+    child: Text(
+    'Not even close? Let us try again!',
+    style: TextStyle(fontSize: 30),
+    )
+    ),
+    ]
+    )
     );
   }
 }
