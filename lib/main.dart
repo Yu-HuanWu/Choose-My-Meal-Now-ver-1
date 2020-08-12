@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -53,6 +54,49 @@ class FirstRoute extends StatelessWidget {
   }
 }
 
+//Old SecondRoute, must always evolve
+
+//class SecondRoute extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//      backgroundColor: Colors.transparent,
+//      appBar: AppBar(
+//        title: Text('What you are in the mood for?'),
+//        backgroundColor: Colors.lightGreen[400],
+//        centerTitle: true,
+//      ),
+//      body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+//        Text('Select a protein:🍗',
+//            textAlign: TextAlign.center,
+//            style: TextStyle(
+//                fontSize: 40,
+//                color: Colors.black,
+//                fontWeight: FontWeight.bold)),
+//        DropDown1Widget(),
+//        Text('Do you like it hot? asdfghjk',
+//            textAlign: TextAlign.center,
+//            style: TextStyle(
+//                fontSize: 40,
+//                color: Colors.black,
+//                fontWeight: FontWeight.bold)),
+//        DropDown2Widget(),
+//        RaisedButton(
+//            onPressed: () {
+//              Navigator.push(
+//                context,
+//                MaterialPageRoute(builder: (context) => ThirdRoute()),
+//              );
+//            },
+//            child: Text(
+//              'Yes! I am hungry!',
+//              style: TextStyle(fontSize: 30),
+//            )),
+//      ]),
+//    );
+//  }
+//}
+
 class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -64,35 +108,81 @@ class SecondRoute extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Text('Select a protein:',
+        Text('Select a protein:🍗',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 40,
                 color: Colors.black,
                 fontWeight: FontWeight.bold)),
-        DropDown1Widget(),
-        Text('Do you like it hot? asdfghjk',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 40,
-                color: Colors.black,
-                fontWeight: FontWeight.bold)),
-        DropDown2Widget(),
-        RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ThirdRoute()),
-              );
-            },
-            child: Text(
-              'Yes! I am hungry!',
-              style: TextStyle(fontSize: 30),
-            )),
+        Expanded(
+          child:
+            proteinlistview(),
+        )
       ]),
     );
   }
 }
+
+//random route generator
+class RouteGenerator {
+
+  static List<String> myRandomPages = [
+    'BigMacRoute',
+    'HamburgerRoute'
+  ];
+
+  static String getRandomNameOfRoute(){
+    return myRandomPages[
+      Random().nextInt(myRandomPages.length)];
+  }
+
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+
+      case 'BigMacRoute':
+        return MaterialPageRoute(builder: (_) => BigMacRoute());
+
+      case 'HamburgerRoute':
+        return MaterialPageRoute(builder: (_) => HamburgerRoute()); // FirstPage - is just a Widget with your content
+
+    }
+  }
+
+}
+
+//listview for proteins
+class proteinlistview extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: const <Widget>[
+        Card(
+          child: ListTile(
+            leading: Text('🐔'),
+            title: Text('Chicken'),
+//            onTap: () {
+//              Navigator.of(context).pushNamed(
+//                RouteGenerator.getRandomNameOfRoute());
+//            },
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: FlutterLogo(),
+            title: Text('Beef'),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: FlutterLogo(),
+            title: Text('Pork'),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 class SecondRouteBackground extends StatelessWidget{
   @override
@@ -112,7 +202,7 @@ class SecondRouteBackground extends StatelessWidget{
 
 //one of the optional route after SecondRoute, this one is for BigMac
 
-class ThirdRoute extends StatelessWidget {
+class BigMacRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,6 +237,43 @@ class ThirdRoute extends StatelessWidget {
     );
   }
 }
+
+class HamburgerRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/hamburger.jpg'),
+          ),
+          Text('Hamburger!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+              )
+          ),
+        ]
+        )
+    );
+  }
+}
+
 
 //Drop Down menu for protein types
 class DropDown1Widget extends StatefulWidget {
@@ -284,7 +411,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget>
 
 //idk i guess this is where the app actually run
 void main() {
-  debugPaintSizeEnabled= true;
+  //debugPaintSizeEnabled= true;
   runApp(
     MaterialApp(
       home: Stack(
