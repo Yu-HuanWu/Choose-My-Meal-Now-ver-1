@@ -42,7 +42,8 @@ class FirstRoute extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SecondRouteBackground()),
+                MaterialPageRoute(
+                    builder: (context) => SecondRouteBackground()),
               );
             },
             child: Text(
@@ -115,8 +116,7 @@ class SecondRoute extends StatelessWidget {
                 color: Colors.black,
                 fontWeight: FontWeight.bold)),
         Expanded(
-          child:
-            proteinlistview(),
+          child: proteinlistview(),
         )
       ]),
     );
@@ -125,45 +125,40 @@ class SecondRoute extends StatelessWidget {
 
 //random route generator
 class RouteGenerator {
+  static List<String> myRandomPages = ['BigMacRoute', 'HamburgerRoute'];
 
-  static List<String> myRandomPages = [
-    'BigMacRoute',
-    'HamburgerRoute'
-  ];
-
-  static String getRandomNameOfRoute(){
-    return myRandomPages[
-      Random().nextInt(myRandomPages.length)];
+  static String getRandomNameOfRoute() {
+    return myRandomPages[Random().nextInt(myRandomPages.length)];
   }
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-
       case 'BigMacRoute':
         return MaterialPageRoute(builder: (_) => BigMacRoute());
 
       case 'HamburgerRoute':
-        return MaterialPageRoute(builder: (_) => HamburgerRoute()); // FirstPage - is just a Widget with your content
+        return MaterialPageRoute(
+            builder: (_) =>
+                HamburgerRoute()); // FirstPage - is just a Widget with your content
 
     }
   }
-
 }
 
 //listview for proteins
-class proteinlistview extends StatelessWidget{
+class proteinlistview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: const <Widget>[
+      children: <Widget>[
         Card(
           child: ListTile(
             leading: Text('🐔'),
             title: Text('Chicken'),
-//            onTap: () {
-//              Navigator.of(context).pushNamed(
-//                RouteGenerator.getRandomNameOfRoute());
-//            },
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(RouteGenerator.getRandomNameOfRoute());
+            },
           ),
         ),
         Card(
@@ -183,20 +178,14 @@ class proteinlistview extends StatelessWidget{
   }
 }
 
-
-class SecondRouteBackground extends StatelessWidget{
+class SecondRouteBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
-      body:
-      Stack(
-      children: [
-        MyStatefulWidget(),
-        SecondRoute()
-      ],
-    )
-    );
+        backgroundColor: Colors.amberAccent,
+        body: Stack(
+          children: [MyStatefulWidget(), SecondRoute()],
+        ));
   }
 }
 
@@ -206,35 +195,32 @@ class BigMacRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
-      appBar: AppBar(
-        title: Text('You are in the mood for...'),
-        backgroundColor: Colors.lightGreen[400],
-        centerTitle: true,
-      ),
-      body:
-    Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-    Image(
-    image: AssetImage('images/BigMac.png'),
-    ),
-      Text('Big Mac!',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 40,
-              color: Colors.black,
-              fontWeight: FontWeight.bold)),
-    RaisedButton(
-    onPressed: () {
-    Navigator.pop(context);
-    },
-    child: Text(
-    'Not even close? Let us try again!',
-    style: TextStyle(fontSize: 30),
-    )
-    ),
-    ]
-    )
-    );
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/BigMac.png'),
+          ),
+          Text('Big Mac!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+              )),
+        ]));
   }
 }
 
@@ -249,7 +235,7 @@ class HamburgerRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/hamburger.jpg'),
           ),
@@ -266,14 +252,10 @@ class HamburgerRoute extends StatelessWidget {
               child: Text(
                 'Not even close? Let us try again!',
                 style: TextStyle(fontSize: 30),
-              )
-          ),
-        ]
-        )
-    );
+              )),
+        ]));
   }
 }
-
 
 //Drop Down menu for protein types
 class DropDown1Widget extends StatefulWidget {
@@ -432,6 +414,7 @@ void main() {
           ),
         ],
       ),
+      onGenerateRoute: RouteGenerator.generateRoute,
     ),
   );
 }
