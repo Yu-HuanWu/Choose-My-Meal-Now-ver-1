@@ -125,10 +125,15 @@ class SecondRoute extends StatelessWidget {
 
 //random route generator
 class RouteGenerator {
-  static List<String> myRandomPages = ['BigMacRoute', 'HamburgerRoute'];
+  static List<String> myBeefPages = ['BigMacRoute', 'HamburgerRoute', 'DoublecheeseburgerRoute'];
+  static List<String> myChickenPages = ['ButtermilkcrispychickenRoute'];
 
-  static String getRandomNameOfRoute() {
-    return myRandomPages[Random().nextInt(myRandomPages.length)];
+  static String getRandomBeefRoute() {
+    return myBeefPages[Random().nextInt(myBeefPages.length)];
+  }
+
+  static String getRandomChickenRoute() {
+    return myChickenPages[Random().nextInt(myChickenPages.length)];
   }
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -139,7 +144,17 @@ class RouteGenerator {
       case 'HamburgerRoute':
         return MaterialPageRoute(
             builder: (_) =>
-                HamburgerRoute()); // FirstPage - is just a Widget with your content
+                HamburgerRoute());
+
+      case 'DoublecheeseburgerRoute':
+        return MaterialPageRoute(
+          builder: (_) =>
+              DoublecheeseburgerRoute());
+
+      case 'ButtermilkcrispychickenRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                ButtermilkcrispychickenRoute());
 
     }
   }
@@ -153,24 +168,40 @@ class proteinlistview extends StatelessWidget {
       children: <Widget>[
         Card(
           child: ListTile(
-            leading: Text('🐔'),
-            title: Text('Chicken'),
+            leading: Text('🐮'),
+            title: Text('Beef'),
             onTap: () {
               Navigator.of(context)
-                  .pushNamed(RouteGenerator.getRandomNameOfRoute());
+                  .pushNamed(RouteGenerator.getRandomBeefRoute());
             },
           ),
         ),
         Card(
           child: ListTile(
-            leading: FlutterLogo(),
-            title: Text('Beef'),
+            leading: Text('🐔'),
+            title: Text('Chicken'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(RouteGenerator.getRandomChickenRoute());
+            },
           ),
         ),
         Card(
           child: ListTile(
-            leading: FlutterLogo(),
+            leading: Text('🐷'),
             title: Text('Pork'),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Text('🐟'),
+            title: Text('Seafood'),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Text('🥬'),
+            title: Text('Vegetarian'),
           ),
         ),
       ],
@@ -219,6 +250,7 @@ class BigMacRoute extends StatelessWidget {
               child: Text(
                 'Not even close? Let us try again!',
                 style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
               )),
         ]));
   }
@@ -237,7 +269,7 @@ class HamburgerRoute extends StatelessWidget {
         body:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
-            image: AssetImage('images/hamburger.jpg'),
+            image: AssetImage('images/hamburger.png'),
           ),
           Text('Hamburger!',
               textAlign: TextAlign.center,
@@ -252,94 +284,164 @@ class HamburgerRoute extends StatelessWidget {
               child: Text(
                 'Not even close? Let us try again!',
                 style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
               )),
         ]));
   }
 }
 
-//Drop Down menu for protein types
-class DropDown1Widget extends StatefulWidget {
-  DropDown1Widget({Key key}) : super(key: key);
-
-  @override
-  _DropDown1WidgetState createState() => _DropDown1WidgetState();
-}
-
-class _DropDown1WidgetState extends State<DropDown1Widget> {
-  String dropdownValue = 'Chicken';
-
+class DoublecheeseburgerRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: Icon(Icons.arrow_drop_down),
-      iconSize: 24,
-      elevation: 16,
-      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>[
-        'Chicken',
-        'Beef',
-        'Seafood',
-        'Pork',
-        'Vegetarian',
-        'Choose for me!'
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/doublecheeseburger.png'),
+          ),
+          Text('Double Cheeseburger!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
   }
 }
 
-//Drop down menu 2 for spice level
-class DropDown2Widget extends StatefulWidget {
-  DropDown2Widget({Key key}) : super(key: key);
-
-  @override
-  _DropDown2WidgetState createState() => _DropDown2WidgetState();
-}
-
-class _DropDown2WidgetState extends State<DropDown2Widget> {
-  String dropdownValue = 'Hot';
-
+class ButtermilkcrispychickenRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: Icon(Icons.arrow_drop_down),
-      iconSize: 24,
-      elevation: 16,
-      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
-      underline: Container(
-        height: 2,
-        color: Colors.pinkAccent,
-      ),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>['Hot', 'Mild', 'Not Spicy', 'Choose for me!']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/buttermilkcrispychicken.png'),
+          ),
+          Text('Buttermilk Crispy Chicken!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
   }
 }
+
+
+////Drop Down menu for protein types
+//class DropDown1Widget extends StatefulWidget {
+//  DropDown1Widget({Key key}) : super(key: key);
+//
+//  @override
+//  _DropDown1WidgetState createState() => _DropDown1WidgetState();
+//}
+//
+//class _DropDown1WidgetState extends State<DropDown1Widget> {
+//  String dropdownValue = 'Chicken';
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return DropdownButton<String>(
+//      value: dropdownValue,
+//      icon: Icon(Icons.arrow_drop_down),
+//      iconSize: 24,
+//      elevation: 16,
+//      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple),
+//      underline: Container(
+//        height: 2,
+//        color: Colors.deepPurpleAccent,
+//      ),
+//      onChanged: (String newValue) {
+//        setState(() {
+//          dropdownValue = newValue;
+//        });
+//      },
+//      items: <String>[
+//        'Chicken',
+//        'Beef',
+//        'Seafood',
+//        'Pork',
+//        'Vegetarian',
+//        'Choose for me!'
+//      ].map<DropdownMenuItem<String>>((String value) {
+//        return DropdownMenuItem<String>(
+//          value: value,
+//          child: Text(value),
+//        );
+//      }).toList(),
+//    );
+//  }
+//}
+//
+////Drop down menu 2 for spice level
+//class DropDown2Widget extends StatefulWidget {
+//  DropDown2Widget({Key key}) : super(key: key);
+//
+//  @override
+//  _DropDown2WidgetState createState() => _DropDown2WidgetState();
+//}
+//
+//class _DropDown2WidgetState extends State<DropDown2Widget> {
+//  String dropdownValue = 'Hot';
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return DropdownButton<String>(
+//      value: dropdownValue,
+//      icon: Icon(Icons.arrow_drop_down),
+//      iconSize: 24,
+//      elevation: 16,
+//      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink),
+//      underline: Container(
+//        height: 2,
+//        color: Colors.pinkAccent,
+//      ),
+//      onChanged: (String newValue) {
+//        setState(() {
+//          dropdownValue = newValue;
+//        });
+//      },
+//      items: <String>['Hot', 'Mild', 'Not Spicy', 'Choose for me!']
+//          .map<DropdownMenuItem<String>>((String value) {
+//        return DropdownMenuItem<String>(
+//          value: value,
+//          child: Text(value),
+//        );
+//      }).toList(),
+//    );
+//  }
+//}
 
 //Freaking animated background for the home page
 class MyStatefulWidget extends StatefulWidget {
