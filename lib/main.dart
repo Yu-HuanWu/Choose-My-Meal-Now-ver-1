@@ -126,7 +126,7 @@ class SecondRoute extends StatelessWidget {
 //random route generator
 class RouteGenerator {
   static List<String> myBeefPages = ['BigMacRoute', 'HamburgerRoute', 'DoublecheeseburgerRoute'];
-  static List<String> myChickenPages = ['ButtermilkcrispychickenRoute'];
+  static List<String> myChickenPages = ['ButtermilkcrispychickenRoute', 'McchickenRoute', 'McnuggetsRoute'];
 
   static String getRandomBeefRoute() {
     return myBeefPages[Random().nextInt(myBeefPages.length)];
@@ -155,6 +155,16 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 ButtermilkcrispychickenRoute());
+
+      case 'McchickenRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                McchickenRoute());
+
+      case 'McnuggetsRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                McnuggetsRoute());
 
     }
   }
@@ -340,6 +350,74 @@ class ButtermilkcrispychickenRoute extends StatelessWidget {
             image: AssetImage('images/buttermilkcrispychicken.png'),
           ),
           Text('Buttermilk Crispy Chicken!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+class McchickenRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/mcchicken.png'),
+          ),
+          Text('McChicken!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+class McnuggetsRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/mcnuggets.png'),
+          ),
+          Text('McNuggets!',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 40,
