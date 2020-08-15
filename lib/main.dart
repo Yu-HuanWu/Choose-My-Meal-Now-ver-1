@@ -13,7 +13,7 @@ class FirstRoute extends StatelessWidget {
         title: Text(
           'Choose My Meal Now!',
           style:
-              TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold),
+              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.lightGreen,
         centerTitle: true,
@@ -127,8 +127,9 @@ class SecondRoute extends StatelessWidget {
 class RouteGenerator {
   static List<String> myBeefPages = ['BigMacRoute', 'HamburgerRoute', 'DoublecheeseburgerRoute', 'dqpcheeseRoute', 'qpcheesebaconRoute'];
   static List<String> myChickenPages = ['ButtermilkcrispychickenRoute', 'McchickenRoute', 'McnuggetsRoute'];
-  static List<String> myPorkPages = ['qpcheesebaconRoute', 'McribRoute'];
+  static List<String> myPorkPages = ['qpcheesebaconRoute', 'McribRoute', 'EggmcmuffinRoute'];
   static List<String> mySeafoodPages= ['FiletofishRoute', 'EbifiletoRoute'];
+  static List<String> myVegetarianPages= ['HotcakesRoute', 'SidesaladRoute', 'WorldfamousfriesRoute'];
 
   static String getRandomBeefRoute() {
     return myBeefPages[Random().nextInt(myBeefPages.length)];
@@ -144,6 +145,10 @@ class RouteGenerator {
 
   static String getRandomSeafoodRoute() {
     return mySeafoodPages[Random().nextInt(mySeafoodPages.length)];
+  }
+
+  static String getRandomVegetarianRoute() {
+    return myVegetarianPages[Random().nextInt(myVegetarianPages.length)];
   }
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -191,6 +196,11 @@ class RouteGenerator {
             builder: (_) =>
                 McribRoute());
 
+      case 'EggmcmuffinRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                EggmcmuffinRoute());
+
       case 'FiletofishRoute':
         return MaterialPageRoute(
             builder: (_) =>
@@ -201,6 +211,20 @@ class RouteGenerator {
             builder: (_) =>
                 EbifiletoRoute());
 
+      case 'HotcakesRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                HotcakesRoute());
+
+      case 'SidesaladRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                SidesaladRoute());
+
+      case 'WorldfamousfriesRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                WorldfamousfriesRoute());
     }
   }
 }
@@ -255,6 +279,10 @@ class proteinlistview extends StatelessWidget {
           child: ListTile(
             leading: Text('🥬'),
             title: Text('Vegetarian'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(RouteGenerator.getRandomVegetarianRoute());
+            }
           ),
         ),
       ],
@@ -583,6 +611,41 @@ class McribRoute extends StatelessWidget {
   }
 }
 
+class EggmcmuffinRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/eggmcmuffin.png'),
+          ),
+          Text('Egg McMuffin!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+
 class FiletofishRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -651,6 +714,109 @@ class EbifiletoRoute extends StatelessWidget {
         ]));
   }
 }
+
+class HotcakesRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/hotcakes.png'),
+          ),
+          Text('Hotcakes!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+class SidesaladRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/sidesalad.png'),
+          ),
+          Text('Side Salad!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+class WorldfamousfriesRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/worldfamousfries.png'),
+          ),
+          Text('World Famous Fries!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
 
 ////Drop Down menu for protein types
 //class DropDown1Widget extends StatefulWidget {
