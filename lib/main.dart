@@ -125,8 +125,10 @@ class SecondRoute extends StatelessWidget {
 
 //random route generator
 class RouteGenerator {
-  static List<String> myBeefPages = ['BigMacRoute', 'HamburgerRoute', 'DoublecheeseburgerRoute'];
+  static List<String> myBeefPages = ['BigMacRoute', 'HamburgerRoute', 'DoublecheeseburgerRoute', 'dqpcheeseRoute', 'qpcheesebaconRoute'];
   static List<String> myChickenPages = ['ButtermilkcrispychickenRoute', 'McchickenRoute', 'McnuggetsRoute'];
+  static List<String> myPorkPages = ['qpcheesebaconRoute', 'McribRoute'];
+  static List<String> mySeafoodPages= ['FiletofishRoute', 'EbifiletoRoute'];
 
   static String getRandomBeefRoute() {
     return myBeefPages[Random().nextInt(myBeefPages.length)];
@@ -134,6 +136,14 @@ class RouteGenerator {
 
   static String getRandomChickenRoute() {
     return myChickenPages[Random().nextInt(myChickenPages.length)];
+  }
+
+  static String getRandomPorkRoute() {
+    return myPorkPages[Random().nextInt(myPorkPages.length)];
+  }
+
+  static String getRandomSeafoodRoute() {
+    return mySeafoodPages[Random().nextInt(mySeafoodPages.length)];
   }
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -151,6 +161,16 @@ class RouteGenerator {
           builder: (_) =>
               DoublecheeseburgerRoute());
 
+      case 'dqpcheeseRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                dqpcheeseRoute());
+
+      case 'qpcheesebaconRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                qpcheesebaconRoute());
+
       case 'ButtermilkcrispychickenRoute':
         return MaterialPageRoute(
             builder: (_) =>
@@ -165,6 +185,21 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 McnuggetsRoute());
+
+      case 'McribRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                McribRoute());
+
+      case 'FiletofishRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                FiletofishRoute());
+
+      case 'EbifiletoRoute':
+        return MaterialPageRoute(
+            builder: (_) =>
+                EbifiletoRoute());
 
     }
   }
@@ -200,12 +235,20 @@ class proteinlistview extends StatelessWidget {
           child: ListTile(
             leading: Text('🐷'),
             title: Text('Pork'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(RouteGenerator.getRandomPorkRoute());
+            },
           ),
         ),
         Card(
           child: ListTile(
             leading: Text('🐟'),
             title: Text('Seafood'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(RouteGenerator.getRandomSeafoodRoute());
+            },
           ),
         ),
         Card(
@@ -436,6 +479,178 @@ class McnuggetsRoute extends StatelessWidget {
   }
 }
 
+class dqpcheeseRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/dqpcheese.png'),
+          ),
+          Text('Double Quarter Pounder with Cheese!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+class qpcheesebaconRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/qpcheesebacon.png'),
+          ),
+          Text('Quarter Pounder with Cheese Bacon!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+
+class McribRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/mcrib.png'),
+          ),
+          Text('McRib!*',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          Text('*may or may not be avaliable at current time'),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+class FiletofishRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/filetofish.png'),
+          ),
+          Text('Filet-O-Fish!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
+
+class EbifiletoRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('You are in the mood for...'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/ebifileto.png'),
+          ),
+          Text('EBI Filet-O!*',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          Text('*Avaliable in Japan.'),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
 
 ////Drop Down menu for protein types
 //class DropDown1Widget extends StatefulWidget {
