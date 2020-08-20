@@ -50,7 +50,24 @@ class FirstRoute extends StatelessWidget {
               'Yes! I am hungry!',
               style: TextStyle(fontSize: 30),
             )),
+        BottomCredit(),
       ]),
+    );
+  }
+}
+
+class BottomCredit extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: RaisedButton(
+        onPressed: () {},
+        child: const Text('Bottom Button!', style: TextStyle(fontSize: 20)),
+        color: Colors.transparent,
+        textColor: Colors.blueAccent,
+        elevation: 0,
+      ),
     );
   }
 }
