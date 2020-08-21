@@ -62,7 +62,14 @@ class BottomCredit extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Credits()
+            ),
+          );
+        },
         child: const Text('Bottom Button!', style: TextStyle(fontSize: 20)),
         color: Colors.transparent,
         textColor: Colors.blueAccent,
@@ -72,6 +79,39 @@ class BottomCredit extends StatelessWidget {
   }
 }
 
+class Credits extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('Acknowledgement'),
+          backgroundColor: Colors.lightGreen[400],
+          centerTitle: true,
+        ),
+        body:
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Image(
+            image: AssetImage('images/hamburger.png'),
+          ),
+          Text('Hamburger!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+          RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Not even close? Let us try again!',
+                style: TextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              )),
+        ]));
+  }
+}
 //Old SecondRoute, must always evolve
 
 //class SecondRoute extends StatelessWidget {
