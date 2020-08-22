@@ -91,15 +91,16 @@ class Credits extends StatelessWidget {
         ),
         body:
         Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Text('The following people helped made my first app possible:',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 35,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
           Image(
             image: AssetImage('images/hamburger.png'),
           ),
-          Text('Hamburger!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold)),
+
           RaisedButton(
               onPressed: () {
                 Navigator.pop(context);
