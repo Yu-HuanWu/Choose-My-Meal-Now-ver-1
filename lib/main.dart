@@ -19,7 +19,7 @@ class FirstRoute extends StatelessWidget {
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         Stack(children: <Widget>[
-          Text('Ready to find some good grubs?',
+          Text('Ready to find some good grub?',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 40,
@@ -29,7 +29,7 @@ class FirstRoute extends StatelessWidget {
                     ..color = Colors.lightGreen,
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic)),
-          Text('Ready to find some good grubs?',
+          Text('Ready to find some good grub?',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 40,
@@ -114,20 +114,24 @@ class Credits extends StatelessWidget {
                           fontWeight: FontWeight.bold)),
                   ListView(
                     shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
                     padding: EdgeInsets.all(15.0),
                     children: <Widget>[
                       ListTile(
-                        leading: Text('Me'),
+                        leading: Text('🏆Me🏆',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                         title: Text(
-                            "in order for me to make this app, I must first exist. Ipso facto my existence made this app possible. Quod erat demonstrandum."),
+                            "In order for me to make this app, I must first exist. Ipso facto my existence made this app possible. Quod erat demonstrandum."),
                       ),
                       ListTile(
-                        leading: Text('Aaron Hong'),
+                        leading: Text('Aaron Hong',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                         title: Text(
-                            'basically took my mess of codes and made it look presentable'),
+                            'Took my undisciplined codes and made it look presentable, basically the Mr. Miyagi to my Daniel-san.🥢'),
                       ),
                       ListTile(
-                        leading: Text('Eric Yen'),
+                        leading: Text('Eric Yen',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                         title: Text(
                             'Thanks for getting me started on coding. You gave me a lot of valuable insights and, of course, a life long friendship. I continue to miss you everyday.'),
                       ),
@@ -135,7 +139,7 @@ class Credits extends StatelessWidget {
                         title: SizedBox(
                             height: 500.0,
                             width: 500.0,
-                            child: Image.asset('images/friend.jpeg')),
+                            child: Image.asset('images/friend.jpg')),
                       ),
                     ],
                   ),
