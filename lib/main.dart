@@ -12,8 +12,7 @@ class FirstRoute extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Choose My Meal Now!',
-          style:
-              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.lightGreen,
         centerTitle: true,
@@ -61,22 +60,34 @@ class BottomCredit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
-      child: RaisedButton(
+      child: FlatButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Credits()
-            ),
-          );
+          Navigator.of(context).push(_createRoute());
         },
-        child: const Text('Bottom Button!', style: TextStyle(fontSize: 20)),
+        child: const Text('About', style: TextStyle(fontSize: 20)),
         color: Colors.transparent,
         textColor: Colors.blueAccent,
-        elevation: 0,
       ),
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Credits(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
 
 class Credits extends StatelessWidget {
@@ -85,32 +96,52 @@ class Credits extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.amberAccent,
         appBar: AppBar(
-          title: Text('Acknowledgement'),
+          title: Text('About this App'),
           backgroundColor: Colors.lightGreen[400],
           centerTitle: true,
         ),
-        body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Text('The following people helped made my first app possible:',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold)),
-          Image(
-            image: AssetImage('images/hamburger.png'),
-          ),
+        body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                      'The following people helped made my first app possible:',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                  ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.all(15.0),
+                    children: <Widget>[
+                      ListTile(
+                        leading: Text('Me'),
+                        title: Text(
+                            "in order for me to make this app, I must first exist. Ipso facto my existence made this app possible. Quod erat demonstrandum."),
+                      ),
+                      ListTile(
+                        leading: Text('Aaron Hong'),
+                        title: Text(
+                            'basically took my mess of codes and made it look presentable'),
+                      ),
+                      ListTile(
+                        leading: Text('Eric Yen'),
+                        title: Text(
+                            'Thanks for getting me started on coding. You gave me a lot of valuable insights and, of course, a life long friendship. I continue to miss you everyday.'),
+                      ),
+                      ListTile(
+                        title: SizedBox(
+                            height: 500.0,
+                            width: 500.0,
+                            child: Image.asset('images/friend.jpeg')),
+                      ),
+                    ],
+                  ),
 
-          RaisedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Not even close? Let us try again!',
-                style: TextStyle(fontSize: 30),
-                textAlign: TextAlign.center,
-              )),
-        ]));
+                  //Text("- Me: in order for me to make this app, I must first exist. Ipso facto my existence made this app possible. Quod erat demonstrandum."),
+                ])));
   }
 }
 //Old SecondRoute, must always evolve
@@ -183,11 +214,29 @@ class SecondRoute extends StatelessWidget {
 
 //random route generator
 class RouteGenerator {
-  static List<String> myBeefPages = ['BigMacRoute', 'HamburgerRoute', 'DoublecheeseburgerRoute', 'dqpcheeseRoute', 'qpcheesebaconRoute'];
-  static List<String> myChickenPages = ['ButtermilkcrispychickenRoute', 'McchickenRoute', 'McnuggetsRoute'];
-  static List<String> myPorkPages = ['qpcheesebaconRoute', 'McribRoute', 'EggmcmuffinRoute'];
-  static List<String> mySeafoodPages= ['FiletofishRoute', 'EbifiletoRoute'];
-  static List<String> myVegetarianPages= ['HotcakesRoute', 'SidesaladRoute', 'WorldfamousfriesRoute'];
+  static List<String> myBeefPages = [
+    'BigMacRoute',
+    'HamburgerRoute',
+    'DoublecheeseburgerRoute',
+    'dqpcheeseRoute',
+    'qpcheesebaconRoute'
+  ];
+  static List<String> myChickenPages = [
+    'ButtermilkcrispychickenRoute',
+    'McchickenRoute',
+    'McnuggetsRoute'
+  ];
+  static List<String> myPorkPages = [
+    'qpcheesebaconRoute',
+    'McribRoute',
+    'EggmcmuffinRoute'
+  ];
+  static List<String> mySeafoodPages = ['FiletofishRoute', 'EbifiletoRoute'];
+  static List<String> myVegetarianPages = [
+    'HotcakesRoute',
+    'SidesaladRoute',
+    'WorldfamousfriesRoute'
+  ];
 
   static String getRandomBeefRoute() {
     return myBeefPages[Random().nextInt(myBeefPages.length)];
@@ -215,74 +264,47 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => BigMacRoute());
 
       case 'HamburgerRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                HamburgerRoute());
+        return MaterialPageRoute(builder: (_) => HamburgerRoute());
 
       case 'DoublecheeseburgerRoute':
-        return MaterialPageRoute(
-          builder: (_) =>
-              DoublecheeseburgerRoute());
+        return MaterialPageRoute(builder: (_) => DoublecheeseburgerRoute());
 
       case 'dqpcheeseRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                dqpcheeseRoute());
+        return MaterialPageRoute(builder: (_) => dqpcheeseRoute());
 
       case 'qpcheesebaconRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                qpcheesebaconRoute());
+        return MaterialPageRoute(builder: (_) => qpcheesebaconRoute());
 
       case 'ButtermilkcrispychickenRoute':
         return MaterialPageRoute(
-            builder: (_) =>
-                ButtermilkcrispychickenRoute());
+            builder: (_) => ButtermilkcrispychickenRoute());
 
       case 'McchickenRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                McchickenRoute());
+        return MaterialPageRoute(builder: (_) => McchickenRoute());
 
       case 'McnuggetsRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                McnuggetsRoute());
+        return MaterialPageRoute(builder: (_) => McnuggetsRoute());
 
       case 'McribRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                McribRoute());
+        return MaterialPageRoute(builder: (_) => McribRoute());
 
       case 'EggmcmuffinRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                EggmcmuffinRoute());
+        return MaterialPageRoute(builder: (_) => EggmcmuffinRoute());
 
       case 'FiletofishRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                FiletofishRoute());
+        return MaterialPageRoute(builder: (_) => FiletofishRoute());
 
       case 'EbifiletoRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                EbifiletoRoute());
+        return MaterialPageRoute(builder: (_) => EbifiletoRoute());
 
       case 'HotcakesRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                HotcakesRoute());
+        return MaterialPageRoute(builder: (_) => HotcakesRoute());
 
       case 'SidesaladRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                SidesaladRoute());
+        return MaterialPageRoute(builder: (_) => SidesaladRoute());
 
       case 'WorldfamousfriesRoute':
-        return MaterialPageRoute(
-            builder: (_) =>
-                WorldfamousfriesRoute());
+        return MaterialPageRoute(builder: (_) => WorldfamousfriesRoute());
     }
   }
 }
@@ -335,13 +357,12 @@ class proteinlistview extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: Text('🥬'),
-            title: Text('Vegetarian'),
-            onTap: () {
-              Navigator.of(context)
-                  .pushNamed(RouteGenerator.getRandomVegetarianRoute());
-            }
-          ),
+              leading: Text('🥬'),
+              title: Text('Vegetarian'),
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(RouteGenerator.getRandomVegetarianRoute());
+              }),
         ),
       ],
     );
@@ -440,7 +461,7 @@ class DoublecheeseburgerRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/doublecheeseburger.png'),
           ),
@@ -474,7 +495,7 @@ class ButtermilkcrispychickenRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/buttermilkcrispychicken.png'),
           ),
@@ -508,7 +529,7 @@ class McchickenRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/mcchicken.png'),
           ),
@@ -542,7 +563,7 @@ class McnuggetsRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/mcnuggets.png'),
           ),
@@ -576,7 +597,7 @@ class dqpcheeseRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/dqpcheese.png'),
           ),
@@ -610,7 +631,7 @@ class qpcheesebaconRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/qpcheesebacon.png'),
           ),
@@ -633,7 +654,6 @@ class qpcheesebaconRoute extends StatelessWidget {
   }
 }
 
-
 class McribRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -645,7 +665,7 @@ class McribRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/mcrib.png'),
           ),
@@ -680,7 +700,7 @@ class EggmcmuffinRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/eggmcmuffin.png'),
           ),
@@ -703,7 +723,6 @@ class EggmcmuffinRoute extends StatelessWidget {
   }
 }
 
-
 class FiletofishRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -715,7 +734,7 @@ class FiletofishRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/filetofish.png'),
           ),
@@ -749,7 +768,7 @@ class EbifiletoRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/ebifileto.png'),
           ),
@@ -784,7 +803,7 @@ class HotcakesRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/hotcakes.png'),
           ),
@@ -818,7 +837,7 @@ class SidesaladRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/sidesalad.png'),
           ),
@@ -852,7 +871,7 @@ class WorldfamousfriesRoute extends StatelessWidget {
           centerTitle: true,
         ),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Image(
             image: AssetImage('images/worldfamousfries.png'),
           ),
@@ -874,7 +893,6 @@ class WorldfamousfriesRoute extends StatelessWidget {
         ]));
   }
 }
-
 
 ////Drop Down menu for protein types
 //class DropDown1Widget extends StatefulWidget {
